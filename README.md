@@ -104,15 +104,7 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
----
-
-## 🔒 Admin Panel
-
-Visit: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)  
-Login using seeded admin credentials or register a new admin.  
-Manage users, pets, product inventory, reports, and more.
 
 ---
 
