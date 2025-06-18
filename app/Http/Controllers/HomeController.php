@@ -24,23 +24,23 @@ class HomeController extends Controller
      */
    
     public function show(){
-        $user = auth()->user();
 
     // Retrieve only the data for the authenticated user
-    $Data = Products::where('user_id', $user->id)->get();
+    $Data = Products::get();
      // Get the current date
      $currentDate = now();
-        
+    
      // Calculate the date 10 days from now
      $expiryThreshold = $currentDate->addDays(10);
  
      // Retrieve stocks with expiry date within 10 days
      $stocksWithExpiry = Stocks::where('Stock_Expiry_Date', '<=', $expiryThreshold)->get();
- 
+     $LowStock = Products::where('Quantity', '<=', 20)->get();
+      
      // Pass the variable to the view
     
 
-    return view('cashier', compact('Data','stocksWithExpiry'));
+    return view('cashier', compact('Data','stocksWithExpiry','LowStock'));
     }
     public function logout(){
         return redirect()->back();

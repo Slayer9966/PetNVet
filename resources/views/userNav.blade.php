@@ -17,7 +17,7 @@
     <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Adora LLC</title>
+    <title>Admin Panel</title>
     <link rel="apple-touch-icon" href="../../../temp/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../temp/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
@@ -50,6 +50,11 @@
     <link rel="stylesheet" type="text/css" href="../../../temp/app-assets/css/style.css">
     <!-- END: Custom CSS-->
     <script src="../../../temp/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
     <style>
         a{
             text-decoration:none !important;
@@ -70,7 +75,7 @@
                 <ul class="nav navbar-nav flex-row">
                     <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="feather icon-menu font-large-1"></i></a></li>
                     <li class="nav-item"><a class="navbar-brand" href="../../../temp/html/ltr/vertical-menu-template/index.html"><img class="brand-logo" alt="stack admin logo" src="../../../temp/app-assets/images/logo/stack-logo.png">
-                            <h2 class="brand-text">Adora LLC</h2>
+                            <h2 class="brand-text">Vet Admin</h2>
                         </a></li>
                     <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a></li>
                 </ul>
@@ -117,22 +122,33 @@
                 <li class=""><a href="{{route('dashboard')}}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Templates">User Management</span></a>
+                <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Templates">Inventory Management</span></a>
                     <ul class="menu-content">
-                    <li @if (Route::is('show')) class="active" @endif><a class="menu-item" href="{{route('show')}}" data-i18n="2 columns">User</a>
+                    <li @if (Route::is('show')) class="active" @endif><a class="menu-item" href="{{route('show')}}" data-i18n="2 columns">Product</a>
                         </li>
                         <li @if (Route::is('bill')) class="active" @endif><a class="menu-item" href="{{route('bill')}}" data-i18n="2 columns">Bill</a>
                         </li>
                         <li @if (Route::is('ShowSold')) class="active" @endif><a class="menu-item" href="{{route('ShowSold')}}" data-i18n="2 columns">Sold Products</a>
                         </li>
-                        <li @if (Route::is('barcode')) class="active" @endif><a class="menu-item" href="{{route('barcode')}}" data-i18n="2 columns">Print Barcode</a>
+                      
+                       
+                   
+                        
+                        
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-book-open"></i><span class="menu-title" data-i18n="Templates">Owner Management</span></a>
+                    <ul class="menu-content">
+                   
+                        <li @if (Route::is('Owner')) class="active" @endif><a class="menu-item" href="{{route('Owner')}}" data-i18n="2 columns">Add Owners</a>
+                        </li>
+                        <li @if (Route::is('Pet')) class="active" @endif><a class="menu-item" href="{{route('Pet')}}" data-i18n="2 columns">Add Pets</a>
                         </li>
                    
                         
                         
                     </ul>
                 </li>
-               
             </ul>
         </div>
     </div>
@@ -146,7 +162,7 @@
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-dark navbar-border">
-        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2023 <a class="text-bold-800 grey darken-2" href="http://ainigmadev.com" target="_blank">Ainigma Dev </a></span><span class="float-md-right d-none d-lg-block">Hand-crafted & Made with <i class="feather icon-heart pink"></i></span></p>
+        <p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2"><span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2023 <a class="text-bold-800 grey darken-2" href="http://slayerdevs.com" target="_blank">Slayer Devs </a></span></p>
     </footer>
     <!-- END: Footer-->
 

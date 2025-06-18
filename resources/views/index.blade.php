@@ -28,12 +28,12 @@
                                 @enderror
 <body>
 <div class="wrapper">
-      <div class="title-text">
+<div class="title-text">
         <div class="title login">Login Form</div>
         <div class="title signup">Signup Form</div>
       </div>
       <div class="form-container">
-        <div class="slide-controls">
+      <div class="slide-controls">
           <input type="radio" name="slide" id="login" checked>
           <input type="radio" name="slide" id="signup">
           <label for="login" class="slide login">Login</label>
@@ -85,7 +85,6 @@
               <div class="btn-layer"></div>
               <input type="submit" value="{{ __('Register') }}">
             </div>
-          </form>
         </div>
       </div>
     </div>

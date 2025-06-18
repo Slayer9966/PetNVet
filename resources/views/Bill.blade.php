@@ -22,7 +22,57 @@
     </style>
 </head>
 
-<!-- selected quantity of product for sell -->
+<!--Modal for Vaccine-->
+<div>
+<div class="modal fade" id="exampleModalVaccine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Vaccine</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <form method="Post" action="{{ route('storeHistory') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                            <label for="ownerSelectAdd" class="form-label">Owners</label>
+                            <select id="ownerSelectAdd" class="form-control ownerSelect" name="Owner" required>
+                                <!-- Options will be populated here by JavaScript -->
+                              
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Pet" class="form-label">Pets</label>
+                            <select id="Pet" class="form-control ownerSelect" name="Pet_Id" required>
+                                <!-- Options will be populated here by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Vaccines" class="form-label">Vaccines</label>
+                            <select id="Vaccines" class="form-control ownerSelect" name="vaccine" required>
+                                <!-- Options will be populated here by JavaScript -->
+                            </select>
+                        </div>
+                        <input type="hidden" id="vaccineNameInput" name="vaccineName">
+                        <div class="mb-3">
+                            <label for="nextVaccineDate" class="form-label">Next Vaccine Date</label>
+                            <input type="date" id="nextVaccineDate" class="form-control" name="next_vaccine_date" required>
+                        </div>
+
+                       
+                        
+<br>
+<br>
+                            <button type="submit" class="btn btn-primary">Do Vaccine</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+ </div>
+</div>
+
 
 <!--  -->
 
@@ -94,16 +144,19 @@
 
 
             <!-- Minimal modern charts for power consumption, region statistics and sales etc. starts here -->
-
+            <button class="btn btn-primary add" data-bs-toggle="modal" data-bs-target="#exampleModalVaccine"
+            data-bs-whatever="@mdo"><i class="fa-solid fa-syringe"></i></button>
           
             <br>
             <br>
+        
             <!-- info and time tracking chart -->
             <div class="row minimal-modern-charts">
 <!-- Vaccine bill -->
 
 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 latest-update-tracking">
                     <div class="card">
+                  
                         <div class="card-header latest-update-heading d-flex justify-content-between">
                             <h4 class="latest-update-heading-title text-bold-500">Vaccine Bill</h4>
 
@@ -135,7 +188,7 @@
     </tbody>
 </table>
 
-                            <a href="{{ route('Sell', ['action' => 'Vaccine_Purchase']) }}"><button>Confirm Purchase</button></a>
+                            <a href="{{ route('Sell', ['action' => 'Vaccine_Purchase']) }}"><button class="btn btn-primary">Confirm Purchase</button></a>
                         </div>
 
                     </div>
@@ -176,7 +229,7 @@
     </tbody>
 </table>
 
-                            <a href="{{ route('Sell', ['action' => 'Product_purchase']) }}"><button>Confirm Purchase</button></a>
+                            <a href="{{ route('Sell', ['action' => 'Product_purchase']) }}"><button class="btn btn-primary">Confirm Purchase</button></a>
                         </div>
 
                     </div>
@@ -237,9 +290,7 @@
 </div>
 
 </div>
-
-
-
+<!-- Modal for Vaccination of Pet -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
@@ -398,6 +449,138 @@ function updateAvailableQuantity() {
        
     }
 });
+// Function for DOING VACCINATION
+async function fetchOwnerDetails() {
+    try {
+        const response = await fetch('/getOwners1'); // Route to fetch owners
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Fetched owner details:', data); // Debug log for fetched data
+        return data;
+    } catch (error) {
+        console.error('Error fetching owner details:', error);
+    }
+}
+
+function populateSelectOptions(selectElement, data, formatOptionText, defaultText = 'Select an option') {
+    // Clear existing options
+    selectElement.innerHTML = '';
+
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = ''; // Set the value to an empty string
+    defaultOption.textContent = defaultText; // Set the default text
+    defaultOption.disabled = true; // Make it non-selectable
+    defaultOption.selected = true; // Set it as the default selection
+    selectElement.appendChild(defaultOption);
+
+    // Check if this is the vaccine select element
+    const isVaccineSelect = selectElement.id === 'Vaccines';
+
+    // Add dynamic options
+    data.forEach(item => {
+        const option = document.createElement('option');
+        if (isVaccineSelect) {
+            option.value = item.id;
+            option.setAttribute('data-name', item.Name); // Use vaccine name as value for vaccine select
+        } else {
+            option.value = item.id; // Use ID for other selects
+        }
+        option.textContent = formatOptionText(item);
+        selectElement.appendChild(option);
+        console.log(`Added option: ${option.value} - ${option.textContent}`); // Debug log for each option
+    });
+}
+
+function setVaccineName() {
+    const select = document.getElementById('Vaccines');
+    const selectedOption = select.options[select.selectedIndex];
+    const vaccineName = selectedOption.getAttribute('data-name');
+    document.getElementById('vaccineNameInput').value = vaccineName;
+}
+document.getElementById('Vaccines').addEventListener('change', setVaccineName);
+
+
+async function fetchPets(ownerId) {
+    try {
+        console.log('Fetching pets for owner ID:', ownerId); // Debug log
+        const response = await fetch(`/getPets/${ownerId}`);
+        if (!response.ok) {
+            console.error('Network response was not ok:', response.statusText); // Debug log
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Fetched pets:', data); // Debug log for fetched data
+        return data;
+    } catch (error) {
+        console.error('Error fetching pets:', error);
+    }
+}
+
+
+
+async function fetchVaccines() {
+    try {
+        const response = await fetch('/getVaccines'); // Route to fetch vaccine products
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        console.log('Fetched vaccines:', data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching vaccines:', error);
+    }
+}
+
+async function updateOwnerSelect() {
+    const owners = await fetchOwnerDetails();
+    if (owners && owners.length > 0) {
+        const ownerSelect = document.querySelector('#ownerSelectAdd');
+        populateSelectOptions(ownerSelect, owners, owner => `${owner.Unique_Id} - ${owner.Name}`, 'Select an Owner');
+    } else {
+        const ownerSelect = document.querySelector('#ownerSelectAdd');
+        populateSelectOptions(ownerSelect, [], () => 'No options available', 'Select an Owner');
+    }
+}
+
+
+async function updatePetSelect(ownerId) {
+    const pets = await fetchPets(ownerId);
+    const petSelect = document.querySelector('#Pet');
+    if (pets && pets.length > 0) {
+        populateSelectOptions(petSelect, pets, pet => pet.PetName || pet.Name || 'Unknown', 'Select a Pet');
+    } else {
+        populateSelectOptions(petSelect, [], () => 'No options available', 'Select a Pet');
+    }
+}
+
+
+
+async function updateVaccineSelect() {
+    const vaccines = await fetchVaccines();
+    const vaccineSelect = document.querySelector('#Vaccines');
+    if (vaccines && vaccines.length > 0) {
+        populateSelectOptions(vaccineSelect, vaccines, vaccine => vaccine.Name, 'Select a Vaccine');
+    } else {
+        populateSelectOptions(vaccineSelect, [], () => 'No options available', 'Select a Vaccine');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateOwnerSelect(); // Initial population of owners
+    updateVaccineSelect(); // Initial population of vaccines
+
+    document.querySelector('#ownerSelectAdd').addEventListener('change', (event) => {
+        const ownerId = event.target.value;
+        console.log('Owner selected:', ownerId); // Debug log
+        updatePetSelect(ownerId); // Call the function with the selected owner ID
+    });
+});
+
+
 </script>
 
 

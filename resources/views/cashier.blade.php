@@ -37,7 +37,7 @@
                                 aria-describedby="emailHelp">
 
                         </div>
-
+                       
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Quantity</label>
                             <input required type="number" name="quantity" class="form-control"
@@ -52,10 +52,11 @@
                             <input required type="number" name="Sprice" class="form-control" id="exampleInputPassword1">
                         </div>
                        <div class="mb-3">
-                       <select name="category">
+                       <select class="form-control" name="category">
     <option value="Vaccine">Vaccine</option>
     <option value="Services">Services</option>
     <option value="Product">Product</option>
+    <option value="Toys">Toys</option>
                         </select>
                        </div>
                         <div class="mb-3">
@@ -120,7 +121,15 @@
                             <label for="exampleInputPassword1" class="form-label">Quantity</label>
                             <input required type="number" name="quantity" class="form-control" id="quantity">
                         </div>
-
+                        <div class="mb-3">
+                            <label class="form-label">Update Quantity</label><br>
+                            <input type="radio" id="add_new" name="update_stock" value="new" checked>
+                            <label for="add_new">Add a new stock</label><br>
+                            <input type="radio" id="update_previous" name="update_stock" value="previous">
+                            <label for="update_previous">Add to previous quantity</label>
+                            <input type="radio" id="same" name="update_stock" value="same">
+                            <label for="update_previous">No change in Quantity</label>
+                        </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Price</label>
                             <input required type="number" name="price" class="form-control" id="price">
@@ -205,7 +214,7 @@
             @foreach($stocksWithExpiry as $items)
             @if($items->Stock_Expiry_Date<=now())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            The Stock with Product Code : {{$items->Product_Code}} is expired.
+            The Stock with Product Code and Product Id and Name : {{$items->Product_Code}}-{{$items->product_id}}-{{$items->product_name}} is expired.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -213,7 +222,26 @@
             @else
 
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            The Stock with Product Code : {{$items->Product_Code}} is expiring soon.
+            The Stock with Product Code and Product Id and Name : {{$items->Product_Code}}-{{$items->product_id}}-{{$items->product_name}} is  expiring soon.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+           @endif
+            @endforeach
+
+            @foreach($LowStock as $items)
+            @if($items->Quantity==0)
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            The Stock with Product Code and Product Id and Name : {{$items->Product_Code}}-{{$items->id}}-{{$items->Name}} is empty in stock.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+            @else
+
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            The Stock with Product Code and Product Id and Name : {{$items->Product_Code}}-{{$items->id}}-{{$items->Name}} is  low on stock.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -232,7 +260,7 @@
                 <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-12 latest-update-tracking">
                     <div class="card">
                         <div class="card-header latest-update-heading d-flex justify-content-between">
-                            <h4 class="latest-update-heading-title text-bold-500">Available Publications</h4>
+                            <h4 class="latest-update-heading-title text-bold-500">Available Products</h4>
 
                         </div>
                         <div class="table-responsive">
@@ -394,6 +422,7 @@
                 $('#i_image').attr('src', '');
             }
         });
+       
     });
    
 </script>

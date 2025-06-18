@@ -19,6 +19,8 @@ return new class extends Migration
             $table->integer('product_price');
             $table->integer('product_quantity');
             $table->string('Category');
+            $table->integer('Pet_Id')->nullable();
+            $table->date('next_vaccine_date')->nullable(); // Adding the next vaccine date
             $table->timestamps();
         });
     }

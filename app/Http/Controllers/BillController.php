@@ -10,6 +10,10 @@ use App\Models\Stocks;
 use Illuminate\Http\Request;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Validation\ValidationException;
+use App\Models\Client;
+use App\Models\Pets;
+use App\Models\History;
+
 
 class BillController extends Controller
 {
@@ -36,10 +40,12 @@ public function addToBill(Request $request)
     try {
         $request->validate([
             'product_id' => 'required|exists:products,id',
+            
         ]);
 
         $userId = Auth::id();
         $product = Products::find($request->input('product_id'));
+       $Pet_Id =$request->input('Pet_Id');
 
         $existingBill = Bill::where('user_id', $userId)
             ->where('product_id', $product->id)
@@ -56,6 +62,8 @@ public function addToBill(Request $request)
             'product_price' => $product->SalePrice,
             'product_quantity' => 1,
             'Category'=>$product->Category,
+            'Pet_Id'=>$Pet_Id,
+            'next_vaccine_date'=>$request->input('next_vaccine_date')
         ]);
 
         $bill->save();
@@ -154,7 +162,13 @@ public function sell(Request $request,$action)
                         }
                     }
                 }
-
+                if($item->Pet_Id!=null){
+                    $history = History::create([
+                        'Pet_Id' => $item->Pet_Id,
+                        'Vaccine' => $item->product_name,
+                        'next_vaccine_date'=>$item->next_vaccine_date // Store the name
+                    ]);
+                }
                 // Remove the item from the bill
                 $item->delete();
             } else {
@@ -162,7 +176,7 @@ public function sell(Request $request,$action)
                 throw new \Exception('No product found for the item in the bill.');
             }
         }
-
+      
         // Commit the transaction
         DB::commit();
 
@@ -208,5 +222,26 @@ public function updateQuantity(Request $request)
     } else {
         return response()->json(['message' => 'Product not found'], 404);
     }
+}
+
+public function getOwners1()
+{
+    $owners = Client::select('id', 'Name', 'Unique_Id')->get();
+    return response()->json($owners);
+}
+
+public function getPets($ownerId)
+{
+    $pets = Pets::where('Owner_id', $ownerId)->select('id', 'PetName')->get();
+    return response()->json($pets);
+}
+
+public function getVaccines()
+{
+    $vaccines = Products::where('Category', 'vaccine')
+                        ->where('Quantity', '>', 0) // Filter for quantity greater than 0
+                        ->select('id', 'Name')
+                        ->get();
+    return response()->json($vaccines);
 }
 }
