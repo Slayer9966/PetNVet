@@ -1,4 +1,3 @@
-```
 # 🐾 Pet n Vet - Veterinary Management System
 
 **Pet n Vet** is a full-stack veterinary management system built using **Laravel** and **MySQL**. This web application streamlines pet healthcare services, allowing users to manage their pets’ records, purchase products online, and for admins to handle users, inventory, and generate insightful reports — all through a clean, responsive UI.
@@ -36,17 +35,17 @@
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Laravel 10
-- **Database:** MySQL
-- **Frontend:** Blade Templates (HTML/CSS/Bootstrap)
-- **Authentication:** Laravel Breeze / Sanctum (based on your setup)
-- **Email Service:** Mailtrap / SMTP
+- **Backend:** Laravel 10  
+- **Database:** MySQL  
+- **Frontend:** Blade Templates (HTML/CSS/Bootstrap)  
+- **Authentication:** Laravel Breeze / Sanctum  
+- **Email Service:** Mailtrap / SMTP  
 
 ---
 
 ## 📂 Project Structure
 
----
+```
 PetnVet/
 ├── app/                   # Application logic (models, controllers)
 ├── public/                # Public assets and entry point
@@ -56,64 +55,72 @@ PetnVet/
 ├── .env.example           # Environment config example
 ├── composer.json          # PHP dependencies
 └── artisan                # Laravel CLI
----
+```
 
 ---
 
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
----
+
+```bash
 git clone https://github.com/Slayer9966/PetNVet.git
 cd PetNVet
----
+```
 
 ### 2. Install Dependencies
----
+
+```bash
 composer install
 npm install && npm run dev
----
+```
 
 ### 3. Configure Environment
----
+
+```bash
 cp .env.example .env
 php artisan key:generate
----
+```
 
 ### 4. Set Up Database
-Edit `.env` file with your DB credentials:
----
+
+Edit your `.env` file:
+
+```dotenv
 DB_DATABASE=petnvet
 DB_USERNAME=root
 DB_PASSWORD=yourpassword
----
+```
 
 Then run:
----
+
+```bash
 php artisan migrate --seed
----
+```
 
 ### 5. Run the Application
----
-php artisan serve
----
 
-Visit: http://127.0.0.1:8000/
+```bash
+php artisan serve
+```
+
+Visit: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ---
 
 ## 🔒 Admin Panel
 
-Login as admin using seeded credentials or register manually.  
-Admins can manage users, pets, inventory, sales reports, and more.
+Visit: [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)  
+Login using seeded admin credentials or register a new admin.  
+Manage users, pets, product inventory, reports, and more.
 
 ---
 
 ## 📧 Email Setup
 
-Add these to `.env`:
+Edit your `.env`:
 
----
+```dotenv
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.mailtrap.io
 MAIL_PORT=2525
@@ -122,20 +129,20 @@ MAIL_PASSWORD=your_password
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=admin@petnvet.com
 MAIL_FROM_NAME="${APP_NAME}"
----
+```
 
 ---
 
 ## 📌 Notes
 
-- Payment gateway not integrated yet.
-- Feature enhancements (PDF reports, appointment booking) are planned.
+- Payment gateway integration is not added yet.
+- Feature enhancements (like appointment booking, PDF reports) are planned.
 
 ---
 
 ## 📜 License
 
-This project is licensed under the **MIT License** — feel free to use and build upon it.
+Licensed under the **MIT License** — use, modify, and share freely.
 
 ---
 
@@ -145,4 +152,3 @@ This project is licensed under the **MIT License** — feel free to use and buil
 📍 Islamabad, Pakistan  
 📧 faizandev666@gmail.com  
 🔗 [GitHub](https://github.com/Slayer9966) | [LinkedIn](https://www.linkedin.com/in/faizan-ali-7b4275297/)
-```
