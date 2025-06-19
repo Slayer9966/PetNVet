@@ -143,4 +143,4 @@ Licensed under the **MIT License** — use, modify, and share freely.
 **Syed Muhammad Faizan Ali**  
 📍 Islamabad, Pakistan  
 📧 faizandev666@gmail.com  
-🔗 [GitHub](https://github.com/Slayer9966) | [LinkedIn](https://www.linkedin.com/in/faizan-ali-7b4275297/)
+🔗 [GitHub](https://github.com/Slayer9966) | [LinkedIn](https://www.linkedin.com/posts/faizan-ali-7b4275297_laravel-webdevelopment-petcare-activity-7250956614931800064-mpl-?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEfDpTgBZMmz-8LKpOQTMYhhO24GPrIrPTI)
